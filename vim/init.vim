@@ -4,6 +4,8 @@
 " safety first
 set secure
 
+nnoremap nf :NERDTreeFind<CR>
+
 " install vim plug if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -42,6 +44,9 @@ call plug#begin('~/.vim/plugged')
   " notetaking in vim
   Plug 'vimwiki/vimwiki'
 
+  " fuzzy finder 
+  Plug 'junegunn/fzf'
+
   " quote/bracket/tags
   Plug 'tpope/vim-surround'
 
@@ -73,9 +78,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'pgdouyon/vim-evanesco'
 
   " fuzzy file search
-  if has('nvim')
-    Plug 'ctrlpvim/ctrlp.vim', { 'do': ':UpdateRemotePlugins' }
-  endif
+  " if has('nvim')
+  "   Plug 'ctrlpvim/ctrlp.vim', { 'do': ':UpdateRemotePlugins' }
+  " endif
 
   " word search
   Plug 'mileszs/ack.vim'
@@ -114,6 +119,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'peitalin/vim-jsx-typescript'
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
+  " prettier for typescript
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
   " tmux
   Plug 'christoomey/vim-tmux-navigator'
 
@@ -127,6 +135,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'janko-m/vim-test'
 
 call plug#end()
+
+nnoremap <C-p> :FZF<CR>
 
 " allow autocompletion on all filetypes except txt
 let g:deoplete#enable_at_startup=1
@@ -207,17 +217,27 @@ augroup END
 " linting & formatting
 let g:ale_fixers = { 
   \'javascript': ['eslint'],
+  \'typescript': ['eslint', 'tslint', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
+  \'typescriptreact': ['eslint', 'tslint', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
   \'javascriptreact': ['eslint'],
   \'python': ['black'],
   \'ruby': ['rubocop']
 \}
-let g:ale_fix_on_save = 1
+
+" let g:ale_fix_on_save = 1
 " let g:ale_linter_aliases = {
 "   \'jsx': ['javascript', 'javascriptreact']
 " \}
+
+augroup making
+  au BufWritePre * silent! :Prettier<CR>
+augroup END
+
 let g:ale_linters = {
   \'javascript': ['eslint'],
+  \'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck'],
   \'javascriptreact': ['eslint','stylelint'],
+  \'typescriptreact': ['eslint', 'tslint', 'tsserver', 'typecheck'],
   \'less': ['stylelint'],
   \'python': ['flake8'],
   \'ruby': ['rubocop']
@@ -368,6 +388,9 @@ nnoremap <C-K> <C-W><C-W>
 " horizontal
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" go to definition
+nnoremap gkd :ALEGoToDefinition<CR>
 
 " buffer switches
 nnoremap <Tab> :bprevious<CR>

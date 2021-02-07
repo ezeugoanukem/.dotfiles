@@ -1,6 +1,11 @@
 export DOTFILES="$HOME/.dotfiles"
 export XDG_CONFIG_HOME="$HOME/.config"
-
+alias exp='cd ~/src/experimental'
+alias vimrc='vim ~/.vimrc'
+alias zshrc='vim ~/.zshrc'
+cd ~/src/experimental/
+source ./setup-env.sh
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 # Run tmux if exists
 if command -v tmux>/dev/null; then
   # attempt to reconnect to existing session or create new
