@@ -6,6 +6,13 @@ set secure
 
 nnoremap nf :NERDTreeFind<CR>
 
+" This creates a quick fix window of recently used buffers to search on and
+" select
+command! Qbuffers call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{"bufnr":v:val}'))
+
+nnoremap gb :Qbuffers<CR>:copen<CR>
+" Close the window after I select a file
+:autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 " install vim plug if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
