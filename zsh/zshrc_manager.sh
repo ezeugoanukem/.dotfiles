@@ -1,9 +1,11 @@
 export DOTFILES="$HOME/.dotfiles"
 export XDG_CONFIG_HOME="$HOME/.config"
+eval $(/home/admin/.linuxbrew/bin/brew shellenv)
 alias exp='cd ~/src/experimental'
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
-cd ~/src/experimental/
+alias check='ssh-add -l'
+cd ~/src/coda/
 source ./setup-env.sh
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 # Run tmux if exists
