@@ -116,6 +116,9 @@ call plug#begin('~/.vim/plugged')
   " python
   Plug 'davidhalter/jedi-vim'
 
+  " closing html tags
+  Plug 'alvan/vim-closetag'
+
   " javascript
   Plug 'MaxMEllon/vim-jsx-pretty'
   Plug 'digitaltoad/vim-pug'
@@ -155,8 +158,8 @@ let g:SuperTabCrMapping = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " allow closetags
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.xml,*.php,*.jsx"
-let g:closetag_xhtml_filenames = "*.xhtml,*.jsx"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.xml,*.php,*.jsx,*.tsx"
+let g:closetag_xhtml_filenames = "*.xhtml,*.jsx,*.tsx"
 
 " tmux
 let g:tmux_navigator_save_on_switch = 1
@@ -231,7 +234,7 @@ let g:ale_fixers = {
   \'ruby': ['rubocop']
 \}
 
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 " let g:ale_linter_aliases = {
 "   \'jsx': ['javascript', 'javascriptreact']
 " \}
